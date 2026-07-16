@@ -49,5 +49,15 @@ ORDER BY num_orders desc;
 
 
 What is the total revenue and average order value per city? Show city, total_revenue, and avg_order_value. Round the average to 2 decimal places using ROUND(AVG(o.total), 2).
+
+SELECT city, SUM(total) AS total_revenue,
+ROUND(AVG(total), 2) AS avg_order_value
+FROM orders
+JOIN customers
+ON orders.customer_id = customers.customer_id
+GROUP BY city;
+
+
+
 Which customers have placed more than 1 order? Use HAVING.
 Stretch: Show each customer's first_name, total spent, and the percentage of total revenue they represent. (Hint: you'll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM 

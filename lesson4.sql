@@ -28,3 +28,12 @@ SELECT *  FROM customers
 LEFT JOIN orders
 ON customers.customer_id = orders.order_id
 WHERE order_id IS Null ;
+
+Write a query that answers: "What is the most expensive order DaRon has ever placed?" Use a JOIN to get there — dont hardcode customer_id = 1.
+
+SELECT first_name, product, total from customers
+JOIN orders
+ON customers.customer_id = orders.customer_id
+WHERE first_name = 'DaRon'
+ORDER by total desc
+limit 1;

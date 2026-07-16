@@ -60,4 +60,14 @@ GROUP BY city;
 
 
 Which customers have placed more than 1 order? Use HAVING.
-Stretch: Show each customer's first_name, total spent, and the percentage of total revenue they represent. (Hint: you'll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM 
+
+SELECT  first_name, COUNT(*) AS more
+FROM orders
+JOIN customers
+on orders.customer_id = customers.customer_id
+GROUP BY first_name
+HAVING COUNT(*) > 1;
+
+
+
+Stretch: Show each customers first_name, total spent, and the percentage of total revenue they represent. (Hint: youll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM 

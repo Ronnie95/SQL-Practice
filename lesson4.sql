@@ -10,7 +10,7 @@ VALUES
 (2, 'Webcam', 119.99, '2026-07-04');
 
 
-Using an INNER JOIN, show each order with the customer's first_name, email, product, and total. Sort by total descending (most expensive first).
+Using an INNER JOIN, show each order with the customers first_name, email, product, and total. Sort by total descending (most expensive first).
 
 SELECT
 first_name,
@@ -22,4 +22,9 @@ INNER JOIN orders
 on customers.customer_id = orders.customer_id
 ORDER BY total desc;
 
+Using a LEFT JOIN, show all customers and their orders. Then add a WHERE clause to return only customers who have no orders. (Hint: filter where the order column is NULL.)
 
+SELECT *  FROM customers
+LEFT JOIN orders
+ON customers.customer_id = orders.order_id
+WHERE order_id IS Null ;

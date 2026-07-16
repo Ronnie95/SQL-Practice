@@ -97,5 +97,15 @@ JOIN customers c ON o.customer_id = c.customer_id
 WHERE o.total > (SELECT AVG(total) FROM orders);
 
 Rewrite exercise 1 using a CTE instead of a subquery. The result should be identical.
+
+WITH order_details AS (
+    SELECT c.first_name, o.product, o.total
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+)
+SELECT first_name, product, total
+FROM order_details
+WHERE total > (SELECT AVG(total) FROM orders);
+
 Using a CTE, find the city with the highest total revenue. Show city and total_revenue.
 Stretch: Write a CTE that calculates each customer's total spent, then in the outer query show only customers who spent more than the average customer spending. (Hint: you'll need AVG(total_spent) in the outer query — or a second CTE.)

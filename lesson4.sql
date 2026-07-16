@@ -37,3 +37,17 @@ ON customers.customer_id = orders.customer_id
 WHERE first_name = 'DaRon'
 ORDER by total desc
 limit 1;
+
+How many orders has each customer placed? Show first_name and num_orders, sorted by num_orders descending.
+
+SELECT first_name, COUNT(*) as num_orders
+FROM orders
+JOIN customers
+ON orders.customer_id = customers.customer_id
+GROUP BY first_name
+ORDER BY num_orders desc;
+
+
+What is the total revenue and average order value per city? Show city, total_revenue, and avg_order_value. Round the average to 2 decimal places using ROUND(AVG(o.total), 2).
+Which customers have placed more than 1 order? Use HAVING.
+Stretch: Show each customer's first_name, total spent, and the percentage of total revenue they represent. (Hint: you'll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM 

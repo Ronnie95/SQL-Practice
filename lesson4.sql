@@ -108,4 +108,16 @@ FROM order_details
 WHERE total > (SELECT AVG(total) FROM orders);
 
 Using a CTE, find the city with the highest total revenue. Show city and total_revenue.
+
+WITH CTE_lesson AS (
+    SELECT SUM(total) AS total_revenue, city
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+    GROUP BY city
+)
+SELECT city, total_revenue
+FROM CTE_lesson
+ORDER BY total_revenue desc
+LIMIT 1;
+
 Stretch: Write a CTE that calculates each customer's total spent, then in the outer query show only customers who spent more than the average customer spending. (Hint: you'll need AVG(total_spent) in the outer query — or a second CTE.)

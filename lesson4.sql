@@ -8,3 +8,18 @@ VALUES
 (3, 'Mouse', 49.99, '2026-07-03'),
 (4, 'Desk Chair', 249.99, '2026-07-03'),
 (2, 'Webcam', 119.99, '2026-07-04');
+
+
+Using an INNER JOIN, show each order with the customer's first_name, email, product, and total. Sort by total descending (most expensive first).
+
+SELECT
+first_name,
+email,
+product,
+total
+FROM customers 
+INNER JOIN orders
+on customers.customer_id = orders.customer_id
+ORDER BY total desc;
+
+

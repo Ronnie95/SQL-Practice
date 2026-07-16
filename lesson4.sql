@@ -70,4 +70,20 @@ HAVING COUNT(*) > 1;
 
 
 
-Stretch: Show each customers first_name, total spent, and the percentage of total revenue they represent. (Hint: youll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM 
+Stretch: Show each customers first_name, total spent, and the percentage of total revenue they represent. (Hint: youll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM
+
+SELECT  first_name, COUNT(*) AS more, SUM(total) AS total_spent
+FROM orders
+JOIN customers
+on orders.customer_id = customers.customer_id
+GROUP BY first_name
+HAVING COUNT(*) > 1;
+
+SELECT
+    c.first_name,
+    SUM(o.total) AS total_spent,
+    ROUND(SUM(o.total) / (SELECT SUM(total) FROM orders) * 100, 2) AS pct_of_revenue
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+GROUP BY c.first_name
+ORDER BY pct_of_revenue DESC;

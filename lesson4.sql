@@ -150,3 +150,15 @@ WHERE total_spent > (
     SELECT AVG(total_spent)
     FROM customer_totals
 );
+
+Rank all orders by total (highest first) using DENSE_RANK. Show first_name, product, total, and rank. What rank is DaRons Keyboard?
+
+SELECT c.first_name, o.product, o.total,
+    DENSE_RANK() OVER (ORDER BY o.total DESC) AS dense_rank 
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id;
+
+
+For each customer, number their orders chronologically using ROW_NUMBER partitioned by customer. Show first_name, product, order_date, and order_num.
+Using LAG, show each order alongside the previous order total for that customer. Add a column called change that calculates the difference between the current total and the previous total. (Hint: total - LAG(total) OVER (...))
+Stretch: Find each customer's single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.

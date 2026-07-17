@@ -190,4 +190,27 @@ SELECT
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
 
-Stretch: Find each customer's single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.
+Stretch: Find each customers single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.
+
+WITH customer_orders AS (
+
+    SELECT c.first_name, o.product, o.total,
+        RANK() OVER (ORDER BY o.total DESC)
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+)
+SELECT customer_orders
+LIMIT 1
+
+WITH customer_orders AS (
+    SELECT
+        c.first_name,
+        o.product,
+        o.total,
+        RANK() OVER (PARTITION BY c.first_name ORDER BY o.total DESC) AS rnk
+    FROM orders o
+    JOIN customers c ON o.customer_id = c.customer_id
+)
+SELECT first_name, product, total
+FROM customer_orders
+WHERE rnk = 1;

@@ -214,3 +214,26 @@ WITH customer_orders AS (
 SELECT first_name, product, total
 FROM customer_orders
 WHERE rnk = 1;
+
+
+Create an index on customers.city. Then run the same EXPLAIN ANALYZE query again. Paste the output. Did anything change? Why or why not? (Hint: think about table size.)
+
+CREATE INDEX idx_customers_city ON customers(city);
+
+EXPLAIN ANALYZE
+SELECT city FROM customers;
+
+Create an index on orders.customer_id — this is a foreign key and should always be indexed. Then run EXPLAIN ANALYZE on your JOIN query from Lesson 4 exercise 1. Paste the output.
+
+CREATE INDEX idx_orders_customer ON orders(customer_id);
+
+Stretch: Run EXPLAIN ANALYZE on your window function query from Lesson 7 (the top-N per group CTE). Read the output and describe in your own words what steps PostgreSQL is taking to execute it.
+
+Run the transaction exercise above (BEGIN → INSERT → SELECT → ROLLBACK → SELECT). Paste the output from both SELECT statements and explain what happened.
+
+
+
+
+In your own words: what's the difference between COMMIT and ROLLBACK?
+You're designing a database for a school. You need to track students, courses, and which students are enrolled in which courses. A student can enroll in many courses, and a course can have many students. Describe the tables you'd create — table names, columns, and primary/foreign keys. You don't need to write SQL, just describe the design.
+Stretch: There's a problem with your current customers table — city is stored as free text, meaning "Atlanta", "atlanta", and "ATLANTA" could all exist as different cities. How would you redesign the schema to fix this? Describe the change (no SQL required).

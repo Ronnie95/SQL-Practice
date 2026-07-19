@@ -85,17 +85,33 @@ VALUES
 
 
 -- Order Items
-INSERT INTO order_items (order_id, product_id, quantity)
+INSERT INTO order_items (order_id, product_id, quantity, unit_price)
 VALUES
-(1, 1, 1),
-(1, 2, 2),
-(2, 4, 1),
-(2, 5, 1),
-(3, 6, 2),
-(4, 3, 1),
-(5, 1, 1),
-(5, 4, 2),
-(6, 2, 3),
-(7, 5, 1),
-(8, 3, 2),
-(8, 6, 1);
+(1, 1, 1, 1200.00),
+(1, 2, 2, 35.00),
+(2, 4, 1, 250.00),
+(2, 5, 1, 450.00),
+(3, 6, 2, 180.00),
+(4, 3, 1, 80.00),
+(5, 1, 1, 1200.00),
+(5, 4, 2, 250.00),
+(6, 2, 3, 35.00),
+(7, 5, 1, 450.00),
+(8, 3, 2, 80.00),
+(8, 6, 1, 180.00);
+
+
+--1.Which customers have placed more than one order?
+SELECT c.first_name, c.last_name, o.order_status, o.order_id
+FROM customers c
+JOIN orders o
+ON c.customer_id = o.customer_id;
+--2.What is the total revenue per product category?
+--3.What are the top 3 best-selling products by total quantity sold?
+--4.Which orders have been cancelled? Show the customer name and order date.
+--5.What is the average order value across all orders?
+--6.Which customer has spent the most money overall?
+--7.For each customer, show their most recent order date.
+--8.Which products have never been ordered?
+--9.Show a running total of revenue ordered by date.
+--10.Rank customers by total spend using DENSE_RANK.

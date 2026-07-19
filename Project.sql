@@ -120,6 +120,13 @@ ORDER BY best_selling DESC
 LIMIT 3;
 
 --4.Which orders have been cancelled? Show the customer name and order date.
+SELECT o.order_status, o.order_date, c.first_name
+FROM orders o
+JOIN customers c
+ON o.customer_id = c.customer_id
+WHERE o.order_status = 'cancelled';
+
+
 --5.What is the average order value across all orders?
 --6.Which customer has spent the most money overall?
 --7.For each customer, show their most recent order date.

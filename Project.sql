@@ -102,11 +102,17 @@ VALUES
 
 
 --1.Which customers have placed more than one order?
-SELECT c.first_name, c.last_name, o.order_status, o.order_id
+SELECT c.first_name, c.last_name, c.customer_id, o.order_status, o.order_id
 FROM customers c
 JOIN orders o
 ON c.customer_id = o.customer_id;
+
 --2.What is the total revenue per product category?
+SELECT p.category, SUM(price) AS total_revenue
+FROM products p
+GROUP BY p.category;
+
+
 --3.What are the top 3 best-selling products by total quantity sold?
 --4.Which orders have been cancelled? Show the customer name and order date.
 --5.What is the average order value across all orders?

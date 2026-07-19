@@ -1,9 +1,9 @@
-Create Database
+--Create Database
 CREATE DATABASE customer_db;
 
-Create a database with these four tables from scratch. You decide the columns, data types, constraints, and keys:
+--Create a database with these four tables from scratch. You decide the columns, data types, constraints, and keys:
 
-customers — people who buy from the store
+--customers — people who buy from the store
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
@@ -13,7 +13,7 @@ CREATE TABLE customers (
     city VARCHAR(50) NOT NULL
 );
 
-products — items the store sells (each product has a price and category)
+--products — items the store sells (each product has a price and category)
 
 CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
@@ -22,7 +22,7 @@ CREATE TABLE products (
     price NUMERIC(10,2) NOT NULL
 );
 
-orders — a customer places an order (has a date and status: 'pending', 'shipped', 'delivered', 'cancelled')
+--orders — a customer places an order (has a date and status: 'pending', 'shipped', 'delivered', 'cancelled')
 
 CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,
@@ -40,16 +40,15 @@ CREATE TABLE orders (
 
 );
 
-order_items — the individual products within an order (an order can contain multiple products)
+--order_items — the individual products within an order (an order can contain multiple products)
 CREATE TABLE order_items (
     order_item_id SERIAL PRIMARY KEY,
     order_id INTEGER NOT NULL REFERENCES orders(order_id),
     product_id INTEGER NOT NULL REFERENCES products(product_id),
-    quantity INTEGER NOT NULL,
-    unit_price NUMERIC(10,2) NOT NULL
+    quantity INTEGER NOT NULL
 );
 
-
+Insert enough data to make the queries interesting: at least 5 customers, 6 products across at least 2 categories, 8 orders with varying statuses, and at least 12 order items.
 
 -- Customers
 INSERT INTO customers (first_name, last_name, email, city)

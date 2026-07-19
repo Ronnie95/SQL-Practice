@@ -1,4 +1,4 @@
-insert at least 5 rows — use customer_id values from your existing customers (1–5). Make sure at least two customers have more than one order. Paste the result of SELECT * FROM orders; when done.
+--insert at least 5 rows — use customer_id values from your existing customers (1–5). Make sure at least two customers have more than one order. Paste the result of SELECT * FROM orders; when done.
 
 INSERT INTO orders (customer_id, product, total, order_date)
 VALUES
@@ -10,7 +10,7 @@ VALUES
 (2, 'Webcam', 119.99, '2026-07-04');
 
 
-Using an INNER JOIN, show each order with the customers first_name, email, product, and total. Sort by total descending (most expensive first).
+--Using an INNER JOIN, show each order with the customers first_name, email, product, and total. Sort by total descending (most expensive first).
 
 SELECT
 first_name,
@@ -22,14 +22,14 @@ INNER JOIN orders
 on customers.customer_id = orders.customer_id
 ORDER BY total desc;
 
-Using a LEFT JOIN, show all customers and their orders. Then add a WHERE clause to return only customers who have no orders. (Hint: filter where the order column is NULL.)
+--Using a LEFT JOIN, show all customers and their orders. Then add a WHERE clause to return only customers who have no orders. (Hint: filter where the order column is NULL.)
 
 SELECT *  FROM customers
 LEFT JOIN orders
 ON customers.customer_id = orders.order_id
 WHERE order_id IS Null ;
 
-Write a query that answers: "What is the most expensive order DaRon has ever placed?" Use a JOIN to get there — dont hardcode customer_id = 1.
+--Write a query that answers: "What is the most expensive order DaRon has ever placed?" Use a JOIN to get there — dont hardcode customer_id = 1.
 
 SELECT first_name, product, total from customers
 JOIN orders
@@ -38,7 +38,7 @@ WHERE first_name = 'DaRon'
 ORDER by total desc
 limit 1;
 
-How many orders has each customer placed? Show first_name and num_orders, sorted by num_orders descending.
+--How many orders has each customer placed? Show first_name and num_orders, sorted by num_orders descending.
 
 SELECT first_name, COUNT(*) as num_orders
 FROM orders
@@ -48,7 +48,7 @@ GROUP BY first_name
 ORDER BY num_orders desc;
 
 
-What is the total revenue and average order value per city? Show city, total_revenue, and avg_order_value. Round the average to 2 decimal places using ROUND(AVG(o.total), 2).
+--What is the total revenue and average order value per city? Show city, total_revenue, and avg_order_value. Round the average to 2 decimal places using ROUND(AVG(o.total), 2).
 
 SELECT city, SUM(total) AS total_revenue,
 ROUND(AVG(total), 2) AS avg_order_value
@@ -59,7 +59,7 @@ GROUP BY city;
 
 
 
-Which customers have placed more than 1 order? Use HAVING.
+--Which customers have placed more than 1 order? Use HAVING.
 
 SELECT  first_name, COUNT(*) AS more
 FROM orders
@@ -70,7 +70,7 @@ HAVING COUNT(*) > 1;
 
 
 
-Stretch: Show each customers first_name, total spent, and the percentage of total revenue they represent. (Hint: youll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM
+--Stretch: Show each customers first_name, total spent, and the percentage of total revenue they represent. (Hint: youll need SUM(total) across all orders as the denominator — you can get that with a subquery: (SELECT SUM(total) FROM
 
 SELECT  first_name, COUNT(*) AS more, SUM(total) AS total_spent
 FROM orders
@@ -89,14 +89,14 @@ GROUP BY c.first_name
 ORDER BY pct_of_revenue DESC;
 
 
-Using a subquery in WHERE, find all orders where the total is above the average. Show product, total, and the customers first_name.
+--Using a subquery in WHERE, find all orders where the total is above the average. Show product, total, and the customers first_name.
 
 SELECT c.first_name, o.product, o.total
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id
 WHERE o.total > (SELECT AVG(total) FROM orders);
 
-Rewrite exercise 1 using a CTE instead of a subquery. The result should be identical.
+--Rewrite exercise 1 using a CTE instead of a subquery. The result should be identical.
 
 WITH order_details AS (
     SELECT c.first_name, o.product, o.total
@@ -120,7 +120,7 @@ FROM CTE_lesson
 ORDER BY total_revenue desc
 LIMIT 1;
 
-Stretch: Write a CTE that calculates each customers total spent, then in the outer query show only customers who spent more than the average customer spending. (Hint: youll need AVG(total_spent) in the outer query — or a second CTE.)
+--Stretch: Write a CTE that calculates each customers total spent, then in the outer query show only customers who spent more than the average customer spending. (Hint: youll need AVG(total_spent) in the outer query — or a second CTE.)
 
 WITH CTE_lesson AS (
     SELECT SUM(total) AS total_spent, first_name
@@ -151,7 +151,7 @@ WHERE total_spent > (
     FROM customer_totals
 );
 
-Rank all orders by total (highest first) using DENSE_RANK. Show first_name, product, total, and rank. What rank is DaRons Keyboard?
+--Rank all orders by total (highest first) using DENSE_RANK. Show first_name, product, total, and rank. What rank is DaRons Keyboard?
 
 SELECT c.first_name, o.product, o.total,
     DENSE_RANK() OVER (ORDER BY o.total DESC) AS dense_rank 
@@ -159,7 +159,7 @@ FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
 
 
-For each customer, number their orders chronologically using ROW_NUMBER partitioned by customer. Show first_name, product, order_date, and order_num.
+--For each customer, number their orders chronologically using ROW_NUMBER partitioned by customer. Show first_name, product, order_date, and order_num.
 
 SELECT c.first_name, o.product, o.order_date,
     ROW_NUMBER() OVER (PARTITION BY c.first_name) AS customers
@@ -172,7 +172,7 @@ SELECT c.first_name, o.product, o.order_date,
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
 
-Using LAG, show each order alongside the previous order total for that customer. Add a column called change that calculates the difference between the current total and the previous total. (Hint: total - LAG(total) OVER (...))
+--Using LAG, show each order alongside the previous order total for that customer. Add a column called change that calculates the difference between the current total and the previous total. (Hint: total - LAG(total) OVER (...))
 
 SELECT
 c.first_name,
@@ -190,7 +190,7 @@ SELECT
 FROM orders o
 JOIN customers c ON o.customer_id = c.customer_id;
 
-Stretch: Find each customers single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.
+--Stretch: Find each customers single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.
 
 WITH customer_orders AS (
 
@@ -216,20 +216,20 @@ FROM customer_orders
 WHERE rnk = 1;
 
 
-Create an index on customers.city. Then run the same EXPLAIN ANALYZE query again. Paste the output. Did anything change? Why or why not? (Hint: think about table size.)
+--Create an index on customers.city. Then run the same EXPLAIN ANALYZE query again. Paste the output. Did anything change? Why or why not? (Hint: think about table size.)
 
 CREATE INDEX idx_customers_city ON customers(city);
 
-EXPLAIN ANALYZE
+--EXPLAIN ANALYZE
 SELECT city FROM customers;
 
-Create an index on orders.customer_id — this is a foreign key and should always be indexed. Then run EXPLAIN ANALYZE on your JOIN query from Lesson 4 exercise 1. Paste the output.
+--Create an index on orders.customer_id — this is a foreign key and should always be indexed. Then run EXPLAIN ANALYZE on your JOIN query from Lesson 4 exercise 1. Paste the output.
 
 CREATE INDEX idx_orders_customer ON orders(customer_id);
 
-Stretch: Run EXPLAIN ANALYZE on your window function query from Lesson 7 (the top-N per group CTE). Read the output and describe in your own words what steps PostgreSQL is taking to execute it.
+--Stretch: Run EXPLAIN ANALYZE on your window function query from Lesson 7 (the top-N per group CTE). Read the output and describe in your own words what steps PostgreSQL is taking to execute it.
 
-Run the transaction exercise above (BEGIN → INSERT → SELECT → ROLLBACK → SELECT). Paste the output from both SELECT statements and explain what happened.
+--Run the transaction exercise above (BEGIN → INSERT → SELECT → ROLLBACK → SELECT). Paste the output from both SELECT statements and explain what happened.
 
 
 

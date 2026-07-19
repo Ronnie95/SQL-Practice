@@ -12,9 +12,11 @@ CREATE TABLE customers (
     city            VARCHAR(50) NOT NULL
 );
 
-
-
-
 products — items the store sells (each product has a price and category)
+CREATE TABLE products (
+    category        VARCHAR(50) NOT NULL,
+    items           VARCHAR(50) NOT NULL,
+    price           INTEGER NOT NULL
+);
 orders — a customer places an order (has a date and status: 'pending', 'shipped', 'delivered', 'cancelled')
 order_items — the individual products within an order (an order can contain multiple products)

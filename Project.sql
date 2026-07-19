@@ -112,8 +112,13 @@ SELECT p.category, SUM(price) AS total_revenue
 FROM products p
 GROUP BY p.category;
 
-
 --3.What are the top 3 best-selling products by total quantity sold?
+SELECT product_name, SUM(price) AS best_selling
+FROM products
+GROUP BY product_name
+ORDER BY best_selling DESC
+LIMIT 3;
+
 --4.Which orders have been cancelled? Show the customer name and order date.
 --5.What is the average order value across all orders?
 --6.Which customer has spent the most money overall?

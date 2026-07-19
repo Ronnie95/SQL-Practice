@@ -4,6 +4,7 @@ CREATE DATABASE customer_db;
 Create a database with these four tables from scratch. You decide the columns, data types, constraints, and keys:
 
 customers — people who buy from the store
+
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -13,6 +14,7 @@ CREATE TABLE customers (
 );
 
 products — items the store sells (each product has a price and category)
+
 CREATE TABLE products (
     product_id SERIAL PRIMARY KEY,
     category VARCHAR(50) NOT NULL,
@@ -21,6 +23,7 @@ CREATE TABLE products (
 );
 
 orders — a customer places an order (has a date and status: 'pending', 'shipped', 'delivered', 'cancelled')
+
 CREATE TABLE orders (
     order_id SERIAL PRIMARY KEY,
     customer_id INTEGER NOT NULL REFERENCES customers(customer_id),
@@ -45,3 +48,55 @@ CREATE TABLE order_items (
     quantity INTEGER NOT NULL,
     unit_price NUMERIC(10,2) NOT NULL
 );
+
+
+
+-- Customers
+INSERT INTO customers (first_name, last_name, email, city)
+VALUES
+('John', 'Smith', 'john.smith@email.com', 'Chicago'),
+('Sarah', 'Jones', 'sarah.jones@email.com', 'Cleveland'),
+('Mike', 'Brown', 'mike.brown@email.com', 'Atlanta'),
+('Emily', 'Davis', 'emily.davis@email.com', 'Dallas'),
+('David', 'Wilson', 'david.wilson@email.com', 'Phoenix');
+
+
+-- Products
+INSERT INTO products (product_name, category, price)
+VALUES
+('Laptop', 'Electronics', 1200.00),
+('Mouse', 'Electronics', 35.00),
+('Keyboard', 'Electronics', 80.00),
+('Office Chair', 'Furniture', 250.00),
+('Desk', 'Furniture', 450.00),
+('Bookshelf', 'Furniture', 180.00);
+
+
+-- Orders
+INSERT INTO orders (customer_id, order_date, order_status)
+VALUES
+(1, '2026-01-05', 'delivered'),
+(2, '2026-01-10', 'shipped'),
+(3, '2026-01-15', 'pending'),
+(1, '2026-02-01', 'cancelled'),
+(5, '2026-02-10', 'delivered'),
+(2, '2026-02-15', 'shipped'),
+(4, '2026-03-01', 'delivered'),
+(3, '2026-03-05', 'pending');
+
+
+-- Order Items
+INSERT INTO order_items (order_id, product_id, quantity)
+VALUES
+(1, 1, 1),
+(1, 2, 2),
+(2, 4, 1),
+(2, 5, 1),
+(3, 6, 2),
+(4, 3, 1),
+(5, 1, 1),
+(5, 4, 2),
+(6, 2, 3),
+(7, 5, 1),
+(8, 3, 2),
+(8, 6, 1);

@@ -234,6 +234,8 @@ Run the transaction exercise above (BEGIN → INSERT → SELECT → ROLLBACK →
 
 
 
-In your own words: what's the difference between COMMIT and ROLLBACK?
-You're designing a database for a school. You need to track students, courses, and which students are enrolled in which courses. A student can enroll in many courses, and a course can have many students. Describe the tables you'd create — table names, columns, and primary/foreign keys. You don't need to write SQL, just describe the design.
-Stretch: There's a problem with your current customers table — city is stored as free text, meaning "Atlanta", "atlanta", and "ATLANTA" could all exist as different cities. How would you redesign the schema to fix this? Describe the change (no SQL required).
+In your own words: whats the difference between COMMIT and ROLLBACK?
+
+Youre designing a database for a school. You need to track students, courses, and which students are enrolled in which courses. A student can enroll in many courses, and a course can have many students. Describe the tables youd create — table names, columns, and primary/foreign keys. You dont need to write SQL, just describe the design.
+
+Stretch: Theres a problem with your current customers table — city is stored as free text, meaning "Atlanta", "atlanta", and "ATLANTA" could all exist as different cities. How would you redesign the schema to fix this? Describe the change (no SQL required).

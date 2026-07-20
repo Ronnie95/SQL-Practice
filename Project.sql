@@ -182,4 +182,11 @@ WHERE oi.product_id IS NULL;
 
 
 --9.Show a running total of revenue ordered by date.
+SELECT o.order_date, SUM(oi.quantity * oi.unit_price) AS total_revenue
+FROM orders o
+JOIN order_items oi
+ON o.order_id = oi.order_id
+GROUP BY order_date
+ORDER BY o.order_date DESC;
+
 --10.Rank customers by total spend using DENSE_RANK.

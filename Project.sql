@@ -114,8 +114,10 @@ JOIN orders o
 ON c.customer_id = o.customer_id;
 
 --2.What is the total revenue per product category?
-SELECT p.category, SUM(price) AS total_revenue
+SELECT p.category, SUM(oi.quantity * oi.unit_price) AS total_revenue
 FROM products p
+JOIN order_items oi
+ON p.product_id = oi.product_id
 GROUP BY p.category;
 
 --3.What are the top 3 best-selling products by total quantity sold?

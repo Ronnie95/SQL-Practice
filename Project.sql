@@ -138,13 +138,48 @@ SELECT AVG(unit_price) AS avg_order_value
 FROM order_items;
 
 --6.Which customer has spent the most money overall?
-SELECT c.first_name, c.last_name,
-WITH most_money AS (
-    select
+
+WITH customer_totals AS (
+    SELECT
+        c.customer_id,
+        c.first_name,
+        c.last_name,
+        SUM(oi.quantity * oi.unit_price) AS total_spent
+    FROM customers c
+    JOIN orders o
+        ON c.customer_id = o.customer_id
+    JOIN order_items oi
+        ON o.order_id = oi.order_id
+    GROUP BY
+        c.customer_id,
+        c.first_name,
+        c.last_name
 )
 
-
+SELECT
+    first_name,
+    last_name,
+    total_spent
+FROM customer_totals
+ORDER BY total_spent DESC
+LIMIT 1;
 --7.For each customer, show their most recent order date.
+
+SELECT c.first_name, c.last_name, MAX(o.order_date) AS recent_order
+FROM customers c 
+JOIN orders o
+ON c.customer_id = o.customer_id
+GROUP BY c.first_name, c.last_name
+ORDER BY recent_order DESC;
+
+
 --8.Which products have never been ordered?
+SELECT p.product_name, oi.quantity
+FROM products p
+LEFT JOIN order_items oi
+ON p.product_id = oi.product_id
+WHERE oi.product_id IS NULL;
+
+
 --9.Show a running total of revenue ordered by date.
 --10.Rank customers by total spend using DENSE_RANK.

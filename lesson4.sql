@@ -122,16 +122,6 @@ LIMIT 1;
 
 --Stretch: Write a CTE that calculates each customers total spent, then in the outer query show only customers who spent more than the average customer spending. (Hint: youll need AVG(total_spent) in the outer query — or a second CTE.)
 
-WITH CTE_lesson AS (
-    SELECT SUM(total) AS total_spent, first_name
-    FROM orders o
-    JOIN customers c 
-    ON o.customer_id = c.customer_id
-    GROUP BY first_name 
-)
-SELECT AVG(total_spent) AS average_spend, first_name
-FROM CTE_lesson
-WHERE first_name > average_spend;
 
 WITH customer_totals AS (
     SELECT

@@ -108,7 +108,7 @@ VALUES
 
 
 --1.Which customers have placed more than one order?
-SELECT c.first_name, c.last_name, c.customer_id, o.order_status, o.order_id
+SELECT c.first_name, c.last_name
 FROM customers c
 JOIN orders o
 ON c.customer_id = o.customer_id;

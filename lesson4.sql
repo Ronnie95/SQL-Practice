@@ -171,16 +171,6 @@ JOIN customers c ON o.customer_id = c.customer_id;
 --Stretch: Find each customers single most expensive order using RANK. Use a CTE to rank orders per customer, then in the outer query filter to only rank = 1.
 
 WITH customer_orders AS (
-
-    SELECT c.first_name, o.product, o.total,
-        RANK() OVER (ORDER BY o.total DESC)
-    FROM orders o
-    JOIN customers c ON o.customer_id = c.customer_id
-)
-SELECT customer_orders
-LIMIT 1
-
-WITH customer_orders AS (
     SELECT
         c.first_name,
         o.product,

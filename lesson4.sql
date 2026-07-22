@@ -160,13 +160,6 @@ JOIN customers c ON o.customer_id = c.customer_id;
 --Using LAG, show each order alongside the previous order total for that customer. Add a column called change that calculates the difference between the current total and the previous total. (Hint: total - LAG(total) OVER (...))
 
 SELECT
-c.first_name,
-o.product,
-LAG(o.total) OVER (PARTITION BY c.first_name) AS change
-FROM orders o
-JOIN customers c ON o.customer_id = c.customer_id;
-
-SELECT
     c.first_name,
     o.order_date,
     o.total,

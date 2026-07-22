@@ -151,11 +151,6 @@ JOIN customers c ON o.customer_id = c.customer_id;
 
 --For each customer, number their orders chronologically using ROW_NUMBER partitioned by customer. Show first_name, product, order_date, and order_num.
 
-SELECT c.first_name, o.product, o.order_date,
-    ROW_NUMBER() OVER (PARTITION BY c.first_name) AS customers
-FROM orders o
-JOIN customers c
-ON o.customer_id = c.customer_id;
 
 SELECT c.first_name, o.product, o.order_date,
     ROW_NUMBER() OVER (PARTITION BY c.first_name ORDER BY o.order_date) AS order_num
